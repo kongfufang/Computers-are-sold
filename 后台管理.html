@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="./iconfont/iconfont.css">
+		<meta charset="utf-8">
+		<title>后台管理</title>
+		<style>
+			.title{
+				margin: 0 auto;
+				background-color: #c7c7c7;
+				width:1240px;
+				height: 50px;
+				color: #000000;
+				text-align: center;
+				line-height: 50px;
+				font-size: 20px;
+			}
+			table{
+			       /*居中对齐*/
+			        width: 1240px;
+					margin: 0 auto;
+			        text-align: center
+					
+			    }
+				
+			.footer .Bt{
+				margin: 0 auto;
+				line-height: 30px;
+				width: 60px;
+				height: 30px;
+				color: #ffffff;
+				background-color: #ff0000;
+				opacity: 0.3;
+				transition: all 1s;
+				cursor: pointer; /* 切换指针形态 */
+				border-radius: 8px;
+			}
+			.footer .Bt:hover{
+				opacity: 1;
+			}
+			tr td .icon-ashbin{
+				font-size: 25px;
+				font-weight: bold;
+				color: #ffffff;
+				background-color: #ff0000;
+				opacity: 0.3;
+				transition: all 1s;
+				border-radius: 8px;
+			}
+			tr td .icon-ashbin:hover{
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 align='center'>后台管理</h1>
+		<div class="title">共有用户&nbsp;<span></span>&nbsp;个</div>
+		<table border="1" cellspacing="0" cellpadding="6">
+			<thead>
+				<th>用户名称</th>
+				<th>剩余金额 ¥</th>
+				<th>删除</th>
+			</thead>
+			<tbody>
+				<tr class="footer">
+					<td colspan="3"><div class="Bt">更改</div></td>
+				</tr> 
+			</tbody>
+		</table>
+		
+		
+		<script>
+			var title = document.querySelector('.title span')
+			function render(){
+				if(localStorage.getItem('data01') != null)
+				{
+					let n = JSON.parse(localStorage.getItem('data01')),tbody = document.querySelector('tbody')
+				
+					let use = n.map(function(ele,index){
+					return`<tr>
+					<td>${ele.name}</td><td>${ele.money}</td>
+					<td><span class="iconfont icon-ashbin"></span></td>
+					</tr>`
+					}),
+					footer = `<tr class="footer">
+						<td colspan="3"><div class="Bt">更改</div></td>
+					</tr>`
+					tbody.innerHTML = use.join('')+footer
+					title.innerHTML =  n.length
+					for(let j = 0;j< n.length;j++)
+					{
+						document.querySelectorAll('.icon-ashbin')[j].addEventListener('click',function(){
+							n.splice(j,1)
+							localStorage.setItem('data01',JSON.stringify(n))
+							render()
+						})
+					}
+				}
+				
+				
+				
+			}
+			render()
+			
+			
+			
+			//删除
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

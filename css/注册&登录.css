@@ -1,0 +1,160 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,body{
+	height: 100%;
+}
+body{
+	display: flex;
+	background: linear-gradient(to right,#ff6c6e,#55aaff);
+	/* 设置渐变背景色 */
+}
+
+.box{
+	position: relative;
+	display: flex;
+	width: 1050px;
+	height: 600px;
+	
+	margin: auto;
+	border-radius: 8px;/* 设置圆角 */
+	border: 1px solid rgb(215, 215, 215);
+	box-shadow: 4px 4px 3px rgb(0, 0, 0,.1);/* 设置边框阴影 */
+}
+
+
+
+.pre-box{
+	width: calc(1050px/2);
+	background: linear-gradient(to top,#aa0000,#ff0000);
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	position: absolute;
+	border-radius: 8px;
+	box-shadow: 4px 4px 3px rgb(0, 0, 0,.1);/* 设置边框阴影 */
+	transition: all 0.7s;
+}
+
+
+.img-bx{
+	margin: 80px auto;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 4px 4px 3px rgb(0, 0, 0,.1);
+}
+.img-bx img{
+	width: 100%;
+}
+
+.pre-box h1{
+	color: #ffffff;
+	text-shadow:  4px 4px 3px rgb(0, 0, 0,.1);
+	margin-top: 50px;
+	text-align: center;
+	letter-spacing: 5px;
+}
+
+.login-form,.register-form{
+	flex: 1;/* 将父级分成2分 */
+	height: 100%;
+}
+
+.titlBox{
+	height: 200px;
+	line-height: 300px;/* 字体垂直居中显示 */
+}
+
+.titlBox h1{
+	color: #ffffff;
+	text-align: center;
+	letter-spacing: 5px;/* 字体间距 */
+}
+
+.input-box{
+	position: relative;
+	display: flex;
+	flex-direction: column;/* 垂直排列 */
+ 	align-items: center;
+}
+
+
+
+
+input{
+	outline: none;
+	width: 60%;
+	height: 40px;
+	margin-bottom: 20px;
+	text-indent: 4px;
+	border: 1px solid #cecece;
+	border-radius: 4px;
+}
+/* 规范提示词位置 */
+span{
+	color: #ffffff;
+	font-size: 15px;
+}
+.use{
+	position: absolute;
+	top: 39px;
+}
+
+.pass_1{
+	position: absolute;
+	bottom: 61px;
+}
+
+.pass{
+	position: absolute;
+	bottom: 2px;
+}
+/* 规范提示词位置 */
+
+
+input:focus{
+	color: #000000;
+}
+
+input:focus::placeholder{
+	opacity: 0;
+}
+
+.bt-box{
+	display:flex;
+	flex-direction: column;
+	justify-content:center; /* 水平居中 */
+	align-items:center; /* 垂直居中 */
+}
+
+button{
+	margin-top: 5px;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 4px;
+	border: none;
+	color: #ffffff;
+	background-color: #00aaff;
+	margin-bottom: 10px;
+}
+
+.bt-box p{
+	font-size: 14px;
+	color: #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+button:hover{
+	cursor: pointer; 
+	opacity: .8; /* 不透明度设置 */
+}
+.bt-box p:hover{
+	cursor: pointer;/* 改变光标形态 */
+	opacity: .8; /* 不透明度设置 */
+}

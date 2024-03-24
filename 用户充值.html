@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户充值</title>
+		<style>
+			table{
+			       /*居中对齐*/
+			        width: 1240px;
+					margin: 0 auto;
+			        text-align: center
+			    }
+			td{
+				font-size: 25px;
+			}
+			input{
+				height: 25px;
+			}
+			.Bt{
+				margin: 0 auto;
+				line-height: 30px;
+				width: 60px;
+				height: 30px;
+				color: #ffffff;
+				background-color: #ff0000;
+				opacity: 0.3;
+				transition: all 1s;
+				cursor: pointer; /* 切换指针形态 */
+				border-radius: 8px;
+			}
+			.Bt:hover{
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 align='center'>用户充值</h1>
+		<table border="1" cellspacing="0" cellpadding="6">
+			<tr>
+				<td>
+					您当前余额为
+				</td>
+				<td>
+					<span>100</span>¥
+				</td>
+			</tr>
+			<tr>
+				<td>
+					请输入充值金额
+				</td>
+				<td><input type="text"/></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="Bt">
+						提交
+					</div>
+				</td>
+			</tr>
+		</table>
+		<script>
+			var n = JSON.parse(localStorage.getItem('data01')),k = 0
+			for(let i = 0;i < n.length;i++)
+			{
+				if(n[i]['mark'] == 1)
+				{
+					k = i
+				}
+			}
+			document.querySelector('span').innerHTML = `${n[k]['money']}`
+			document.querySelector('.Bt').addEventListener('click',function(){
+				let money = document.querySelector('input').value
+				if(Number(money) == NaN||money==''){
+					alert('请输入有效数字')
+				}else{
+					n[k]['money'] = Number(n[k]['money'])  +  Number(money)
+					alert('充值成功')
+				}
+				document.querySelector('span').innerHTML = `${n[k]['money']}`
+				document.querySelector('input').value = ''
+				localStorage.setItem('data01',JSON.stringify(n))
+			})
+			
+			
+		</script>
+	</body>
+</html>

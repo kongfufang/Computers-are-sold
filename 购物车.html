@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="./iconfont/iconfont.css">
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<style>
+			.title{
+				margin: 0 auto;
+				background-color: #c7c7c7;
+				width:1240px;
+				height: 50px;
+				color: #000000;
+				text-align: center;
+				line-height: 50px;
+				font-size: 20px;
+			}
+			table{
+			       /*居中对齐*/
+			        width: 1240px;
+					margin: 0 auto;
+			        text-align: center
+					
+			    }
+				
+			.footer .Bt{
+				margin: 0 auto;
+				line-height: 30px;
+				width: 60px;
+				height: 30px;
+				color: #ffffff;
+				background-color: #ff0000;
+				opacity: 0.3;
+				transition: all 1s;
+				cursor: pointer; /* 切换指针形态 */
+				border-radius: 8px;
+			}
+			.footer .Bt:hover{
+				opacity: 1;
+			}
+			tr td .icon-ashbin{
+				font-size: 25px;
+				font-weight: bold;
+				color: #ffffff;
+				background-color: #ff0000;
+				opacity: 0.3;
+				transition: all 1s;
+				border-radius: 8px;
+			}
+			tr td .icon-ashbin:hover{
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 align='center'>商品购物车</h1>
+		<div class="title">共有商品&nbsp;<span></span>&nbsp;个</div>
+		<table border="1" cellspacing="0" cellpadding="6">
+			<thead>
+				<th>商品名称</th>
+				<th>价格 ¥</th>
+				<th>删除</th>
+			</thead>
+			<tbody>
+				<tr class="footer">
+					<td>您目前的金额:&nbsp;<span class = 'money'>0</span>¥</td>
+					<td>总计:&nbsp;<span class="cost">0</span>¥</td>
+					<td><div class="Bt">支付</div></td>
+				</tr> 
+			</tbody>
+		</table>
+		
+		
+		<script>
+			var n = JSON.parse(localStorage.getItem('data01')),
+			k = 0,
+			tbody = document.querySelector('tbody'),
+			title = document.querySelector('.title span'),
+			sum = 0
+			for(let i = 0;i < n.length;i++)
+			{
+				if(n[i]['mark'] == 1)
+				{
+					k = i
+				}
+			}
+			
+			
+			// 渲染页面函数
+			function render(){
+				sum = 0
+				// map添加元素
+				let good = n[k]['goods'].map(function(ele,index){
+					return`<tr>
+					<td>${ele.name}</td><td>${ele.cost}</td>
+					<td><span data-id = '${index}' class="iconfont icon-ashbin"></span></td>
+					</tr>`
+				}),
+				footer = `<tr class="footer">
+					<td>您目前的金额:&nbsp;<span class = 'money'>0</span>¥</td>
+					<td>总计:&nbsp;<span class="cost">0</span>¥</td>
+					<td><div class="Bt">支付</div></td>
+				</tr>  `
+				//join字符串化
+				tbody.innerHTML = good.join('')+footer
+				for(let j = 0;j<n[k]['goods'].length;j++)
+				{
+					sum = sum + Number(n[k]['goods'][j]['cost'])
+				}
+				document.querySelector('.footer .cost').innerHTML=`${sum}`
+				title.innerHTML =  n[k]['goods'].length
+				
+				document.querySelector('.Bt').addEventListener('click',function(){
+					if(sum > n[k]['money'])
+					{
+						alert('余额不足')
+					}
+					else{
+						n[k]['money'] = n[k]['money'] - sum
+						n[k]['goods'].splice(1,n[k]['goods'].length)
+						n[k]['goods'][0]['name'] = ''
+						n[k]['goods'][0]['cost'] = ''
+						alert('支付成功')
+						
+						render()
+					}
+						
+					
+				})
+				document.querySelector('.money').innerHTML = `${n[k]['money']}`
+			}
+			render()
+			//删除
+			tbody.addEventListener('click',function(e){
+				if(e.target.tagName === 'SPAN')
+				{
+					if(n[k]['goods'].length == 1)
+					{
+						n[k]['goods'][0]['name'] = ''
+						n[k]['goods'][0]['cost'] = ''
+					}else{
+						n[k]['goods'].splice(e.target.dataset.id,1)
+					}
+					
+				}
+				render()
+				localStorage.setItem('data01',JSON.stringify(n))
+			})
+			
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>
